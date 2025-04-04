@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Glossary</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f1ff; /* Light violet background */
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #6a5acd; /* Soft Violet */
+            padding: 15px 30px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a, .nav-right a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #search {
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        /* Glossary Section */
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        /* Glossary List */
+        #glossary-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .glossary-item {
+            background: #d8c4ff; /* Light Violet */
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .glossary-item:hover {
+            background: #b59cff; /* Slightly darker violet */
+        }
+
+        .definition {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #e8defb;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="logo">DevOps Glossary</div>
+        <ul class="nav-links">
+            <li><a href="#">DevOps</a></li>
+            <li><a href="#">AWS</a></li>
+            <li><a href="#">Linux</a></li>
+            <li><a href="#">Books</a></li>
+            <li><a href="#">Cloud Computing</a></li>
+            <li><a href="#">Security</a></li>
+        </ul>
+        <div class="nav-right">
+            <input type="text" id="search" placeholder="Search...">
+            <a href="#">Profile</a>
+            <a href="#">Login</a>
+        </div>
+    </nav>
+
+    <!-- Glossary Section -->
+    <div class="container">
+        <h2>DevOps Terminologies</h2>
+        <ul id="glossary-list"></ul>
+    </div>
+
+    <script>
+        // DevOps Glossary Data
+        const glossary = [
+            { term: "Blue-Green Deployment", definition: "A deployment strategy that runs two environments (Blue & Green) to reduce downtime." },
+            { term: "Canary Deployment", definition: "A gradual rollout method where a new release is deployed to a subset of users first." },
+            { term: "Infrastructure as Code (IaC)", definition: "Managing infrastructure through code using Terraform, Ansible, etc." },
+            { term: "Immutable Infrastructure", definition: "Instead of modifying running servers, new instances replace old ones." },
+            { term: "GitOps", definition: "A DevOps practice where Git is the single source of truth for deployments." },
+            { term: "Observability", definition: "The ability to measure a system's state using logs, metrics, and traces." },
+            { term: "Service Mesh", definition: "A dedicated layer for managing service-to-service communication, e.g., Istio." },
+            { term: "ELK Stack", definition: "A logging and monitoring stack (Elasticsearch, Logstash, Kibana)." },
+            { term: "Secrets Management", definition: "Storing and managing credentials securely using Vault, AWS Secrets Manager." },
+            { term: "Chaos Engineering", definition: "Testing system resilience by introducing failures intentionally." },
+            { term: "Continuous Integration (CI)", definition: "Automating code integration using tools like Jenkins, GitHub Actions." },
+            { term: "Continuous Deployment (CD)", definition: "Automatically deploying new changes without manual intervention." },
+            { term: "Microservices", definition: "A software architecture where applications are divided into small, independent services." },
+            { term: "Docker", definition: "A platform for containerizing applications to run consistently across environments." },
+            { term: "Kubernetes", definition: "An open-source platform for automating container orchestration and scaling." },
+            { term: "Terraform", definition: "An Infrastructure as Code tool to define cloud resources declaratively." },
+            { term: "Ansible", definition: "An automation tool used for configuration management and application deployment." },
+            { term: "CI/CD Pipeline", definition: "A workflow that automates software development from testing to deployment." },
+            { term: "Load Balancer", definition: "A system that distributes traffic across multiple servers to ensure availability." },
+            { term: "Monitoring", definition: "Tracking system performance using tools like Prometheus, Grafana, Datadog." }
+        ];
+
+        // Function to Display Glossary
+        function displayGlossary() {
+            const glossaryList = document.getElementById("glossary-list");
+            glossaryList.innerHTML = "";
+
+            glossary.forEach((item) => {
+                const li = document.createElement("li");
+                li.classList.add("glossary-item");
+                li.innerHTML = `<strong>${item.term}</strong>`;
+
+                // Create a paragraph for definition (hidden by default)
+                const definitionPara = document.createElement("p");
+                definitionPara.classList.add("definition");
+                definitionPara.textContent = item.definition;
+
+                li.appendChild(definitionPara);
+                glossaryList.appendChild(li);
+
+                // Add click event to show/hide definition
+                li.addEventListener("click", () => {
+                    definitionPara.style.display = definitionPara.style.display === "block" ? "none" : "block";
+                });
+            });
+        }
+
+        // Search Functionality
+        document.getElementById("search").addEventListener("input", function () {
+            const searchTerm = this.value.toLowerCase();
+            const filteredGlossary = glossary.filter(item => item.term.toLowerCase().includes(searchTerm));
+            
+            const glossaryList = document.getElementById("glossary-list");
+            glossaryList.innerHTML = "";
+
+            filteredGlossary.forEach((item) => {
+                const li = document.createElement("li");
+                li.classList.add("glossary-item");
+                li.innerHTML = `<strong>${item.term}</strong>`;
+
+                // Create a paragraph for definition
+                const definitionPara = document.createElement("p");
+                definitionPara.classList.add("definition");
+                definitionPara.textContent = item.definition;
+
+                li.appendChild(definitionPara);
+                glossaryList.appendChild(li);
+
+                // Add click event to show/hide definition
+                li.addEventListener("click", () => {
+                    definitionPara.style.display = definitionPara.style.display === "block" ? "none" : "block";
+                });
+            });
+        });
+
+        // Load glossary on page load
+        window.onload = displayGlossary;
+    </script>
+
+</body>
+</html>
