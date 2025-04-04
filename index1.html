@@ -5,21 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DevOps Glossary</title>
     <style>
-        /* General Styles */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f1ff; /* Light violet background */
-            color: #333;
-            margin: 0;
-            padding: 0;
+            background: url('image.png') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
         }
 
-        /* Navigation Bar */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #6a5acd; /* Soft Violet */
+            background: #6a5acd;
             padding: 15px 30px;
             color: white;
         }
@@ -57,7 +65,6 @@
             border: none;
         }
 
-        /* Glossary Section */
         .container {
             max-width: 800px;
             margin: 40px auto;
@@ -65,20 +72,22 @@
             background: white;
             border-radius: 10px;
             box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
         }
 
         h2 {
             text-align: center;
         }
 
-        /* Glossary List */
         #glossary-list {
             list-style: none;
             padding: 0;
         }
 
         .glossary-item {
-            background: #d8c4ff; /* Light Violet */
+            background: #001f3f;
+            color: white;
             margin: 10px 0;
             padding: 15px;
             border-radius: 5px;
@@ -87,70 +96,59 @@
         }
 
         .glossary-item:hover {
-            background: #b59cff; /* Slightly darker violet */
+            background: #003366;
         }
 
         .definition {
             display: none;
             margin-top: 10px;
             padding: 10px;
-            background: #e8defb;
+            background: #004080;
+            color: white;
             border-radius: 5px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Navigation Bar -->
     <nav>
         <div class="logo">DevOps Glossary</div>
         <ul class="nav-links">
-            <li><a href="#">DevOps</a></li>
-            <li><a href="#">AWS</a></li>
-            <li><a href="#">Linux</a></li>
-            <li><a href="#">Books</a></li>
-            <li><a href="#">Cloud Computing</a></li>
-            <li><a href="#">Security</a></li>
+            <li><a href="https://www.devops.com" target="_blank">DevOps</a></li>
+            <li><a href="https://aws.amazon.com" target="_blank">AWS</a></li>
+            <li><a href="https://www.kernel.org" target="_blank">Linux</a></li>
+            <li><a href="https://www.oreilly.com/library/view/devops/" target="_blank">Books</a></li>
+            <li><a href="https://www.ibm.com/cloud/learn/cloud-computing" target="_blank">Cloud Computing</a></li>
+            <li><a href="https://owasp.org/" target="_blank">Security</a></li>
         </ul>
         <div class="nav-right">
             <input type="text" id="search" placeholder="Search...">
-            <a href="#">Profile</a>
-            <a href="#">Login</a>
+            <a href="profile.html">Profile</a>
+            <a href="login.html">Login</a>
         </div>
     </nav>
 
-    <!-- Glossary Section -->
     <div class="container">
         <h2>DevOps Terminologies</h2>
         <ul id="glossary-list"></ul>
     </div>
 
     <script>
-        // DevOps Glossary Data
         const glossary = [
-            { term: "Blue-Green Deployment", definition: "A deployment strategy that runs two environments (Blue & Green) to reduce downtime." },
-            { term: "Canary Deployment", definition: "A gradual rollout method where a new release is deployed to a subset of users first." },
-            { term: "Infrastructure as Code (IaC)", definition: "Managing infrastructure through code using Terraform, Ansible, etc." },
-            { term: "Immutable Infrastructure", definition: "Instead of modifying running servers, new instances replace old ones." },
-            { term: "GitOps", definition: "A DevOps practice where Git is the single source of truth for deployments." },
-            { term: "Observability", definition: "The ability to measure a system's state using logs, metrics, and traces." },
-            { term: "Service Mesh", definition: "A dedicated layer for managing service-to-service communication, e.g., Istio." },
-            { term: "ELK Stack", definition: "A logging and monitoring stack (Elasticsearch, Logstash, Kibana)." },
-            { term: "Secrets Management", definition: "Storing and managing credentials securely using Vault, AWS Secrets Manager." },
-            { term: "Chaos Engineering", definition: "Testing system resilience by introducing failures intentionally." },
-            { term: "Continuous Integration (CI)", definition: "Automating code integration using tools like Jenkins, GitHub Actions." },
-            { term: "Continuous Deployment (CD)", definition: "Automatically deploying new changes without manual intervention." },
-            { term: "Microservices", definition: "A software architecture where applications are divided into small, independent services." },
-            { term: "Docker", definition: "A platform for containerizing applications to run consistently across environments." },
-            { term: "Kubernetes", definition: "An open-source platform for automating container orchestration and scaling." },
-            { term: "Terraform", definition: "An Infrastructure as Code tool to define cloud resources declaratively." },
-            { term: "Ansible", definition: "An automation tool used for configuration management and application deployment." },
-            { term: "CI/CD Pipeline", definition: "A workflow that automates software development from testing to deployment." },
-            { term: "Load Balancer", definition: "A system that distributes traffic across multiple servers to ensure availability." },
-            { term: "Monitoring", definition: "Tracking system performance using tools like Prometheus, Grafana, Datadog." }
+            { term: "Cloud Computing", definition: "The delivery of computing services over the internet." },
+            { term: "AWS", definition: "Amazon Web Services, a cloud computing platform providing various cloud services." },
+            { term: "Linux", definition: "An open-source operating system widely used in servers and development environments." },
+            { term: "Flavour of Linux", definition: "Different distributions of Linux such as Ubuntu, CentOS, and Fedora." },
+            { term: "Git", definition: "A version control system used for tracking changes in code." },
+            { term: "Docker", definition: "A containerization platform for developing, shipping, and running applications." },
+            { term: "GitHub", definition: "A web-based platform for version control and collaboration using Git." },
+            { term: "Containerization", definition: "A method of packaging applications with their dependencies for portability." },
+            { term: "Ansible", definition: "A configuration management tool used for automating IT tasks." },
+            { term: "Jenkins", definition: "An open-source automation server for continuous integration and delivery." },
+            { term: "Kubernetes", definition: "An open-source system for automating deployment, scaling, and management of containerized applications." },
+            { term: "Container Orchestration", definition: "Managing and scaling containerized applications using tools like Kubernetes." }
         ];
 
-        // Function to Display Glossary
         function displayGlossary() {
             const glossaryList = document.getElementById("glossary-list");
             glossaryList.innerHTML = "";
@@ -160,7 +158,6 @@
                 li.classList.add("glossary-item");
                 li.innerHTML = `<strong>${item.term}</strong>`;
 
-                // Create a paragraph for definition (hidden by default)
                 const definitionPara = document.createElement("p");
                 definitionPara.classList.add("definition");
                 definitionPara.textContent = item.definition;
@@ -168,44 +165,15 @@
                 li.appendChild(definitionPara);
                 glossaryList.appendChild(li);
 
-                // Add click event to show/hide definition
                 li.addEventListener("click", () => {
                     definitionPara.style.display = definitionPara.style.display === "block" ? "none" : "block";
                 });
             });
         }
 
-        // Search Functionality
-        document.getElementById("search").addEventListener("input", function () {
-            const searchTerm = this.value.toLowerCase();
-            const filteredGlossary = glossary.filter(item => item.term.toLowerCase().includes(searchTerm));
-            
-            const glossaryList = document.getElementById("glossary-list");
-            glossaryList.innerHTML = "";
-
-            filteredGlossary.forEach((item) => {
-                const li = document.createElement("li");
-                li.classList.add("glossary-item");
-                li.innerHTML = `<strong>${item.term}</strong>`;
-
-                // Create a paragraph for definition
-                const definitionPara = document.createElement("p");
-                definitionPara.classList.add("definition");
-                definitionPara.textContent = item.definition;
-
-                li.appendChild(definitionPara);
-                glossaryList.appendChild(li);
-
-                // Add click event to show/hide definition
-                li.addEventListener("click", () => {
-                    definitionPara.style.display = definitionPara.style.display === "block" ? "none" : "block";
-                });
-            });
-        });
-
-        // Load glossary on page load
         window.onload = displayGlossary;
     </script>
 
 </body>
 </html>
+
