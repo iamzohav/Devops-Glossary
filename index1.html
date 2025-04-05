@@ -149,11 +149,12 @@
             { term: "Container Orchestration", definition: "Managing and scaling containerized applications using tools like Kubernetes." }
         ];
 
-        function displayGlossary() {
-            const glossaryList = document.getElementById("glossary-list");
+        const glossaryList = document.getElementById("glossary-list");
+
+        function displayGlossary(filteredGlossary = glossary) {
             glossaryList.innerHTML = "";
 
-            glossary.forEach((item) => {
+            filteredGlossary.forEach((item) => {
                 const li = document.createElement("li");
                 li.classList.add("glossary-item");
                 li.innerHTML = `<strong>${item.term}</strong>`;
@@ -171,9 +172,16 @@
             });
         }
 
-        window.onload = displayGlossary;
+        document.getElementById("search").addEventListener("input", function () {
+            const searchTerm = this.value.toLowerCase();
+            const filtered = glossary.filter(item =>
+                item.term.toLowerCase().includes(searchTerm)
+            );
+            displayGlossary(filtered);
+        });
+
+        window.onload = () => displayGlossary();
     </script>
 
 </body>
 </html>
-
