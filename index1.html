@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Glossary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url('image.png') no-repeat center center fixed;
+            background-size: cover;
+            position: relative;
+        }
+
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: -1;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #6a5acd;
+            padding: 15px 30px;
+            color: white;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links li {
+            display: inline;
+        }
+
+        .nav-links a, .nav-right a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #search {
+            padding: 5px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        #glossary-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .glossary-item {
+            background: #001f3f;
+            color: white;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .glossary-item:hover {
+            background: #003366;
+        }
+
+        .definition {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            background: #004080;
+            color: white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">DevOps Glossary</div>
+        <ul class="nav-links">
+            <li><a href="https://www.devops.com" target="_blank">DevOps</a></li>
+            <li><a href="https://aws.amazon.com" target="_blank">AWS</a></li>
+            <li><a href="https://www.kernel.org" target="_blank">Linux</a></li>
+            <li><a href="https://www.oreilly.com/library/view/devops/" target="_blank">Books</a></li>
+            <li><a href="https://www.ibm.com/cloud/learn/cloud-computing" target="_blank">Cloud Computing</a></li>
+            <li><a href="https://owasp.org/" target="_blank">Security</a></li>
+        </ul>
+        <div class="nav-right">
+            <input type="text" id="search" placeholder="Search...">
+            <a href="profile.html">Profile</a>
+            <a href="login.html">Login</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>DevOps Terminologies</h2>
+        <ul id="glossary-list"></ul>
+    </div>
+
+    <script>
+        const glossary = [
+            { term: "Cloud Computing", definition: "The delivery of computing services over the internet." },
+            { term: "AWS", definition: "Amazon Web Services, a cloud computing platform providing various cloud services." },
+            { term: "Linux", definition: "An open-source operating system widely used in servers and development environments." },
+            { term: "Flavour of Linux", definition: "Different distributions of Linux such as Ubuntu, CentOS, and Fedora." },
+            { term: "Git", definition: "A version control system used for tracking changes in code." },
+            { term: "Docker", definition: "A containerization platform for developing, shipping, and running applications." },
+            { term: "GitHub", definition: "A web-based platform for version control and collaboration using Git." },
+            { term: "Containerization", definition: "A method of packaging applications with their dependencies for portability." },
+            { term: "Ansible", definition: "A configuration management tool used for automating IT tasks." },
+            { term: "Jenkins", definition: "An open-source automation server for continuous integration and delivery." },
+            { term: "Kubernetes", definition: "An open-source system for automating deployment, scaling, and management of containerized applications." },
+            { term: "Container Orchestration", definition: "Managing and scaling containerized applications using tools like Kubernetes." }
+        ];
+
+        const glossaryList = document.getElementById("glossary-list");
+
+        function displayGlossary(filteredGlossary = glossary) {
+            glossaryList.innerHTML = "";
+
+            filteredGlossary.forEach((item) => {
+                const li = document.createElement("li");
+                li.classList.add("glossary-item");
+                li.innerHTML = `<strong>${item.term}</strong>`;
+
+                const definitionPara = document.createElement("p");
+                definitionPara.classList.add("definition");
+                definitionPara.textContent = item.definition;
+
+                li.appendChild(definitionPara);
+                glossaryList.appendChild(li);
+
+                li.addEventListener("click", () => {
+                    definitionPara.style.display = definitionPara.style.display === "block" ? "none" : "block";
+                });
+            });
+        }
+
+        document.getElementById("search").addEventListener("input", function () {
+            const searchTerm = this.value.toLowerCase();
+            const filtered = glossary.filter(item =>
+                item.term.toLowerCase().includes(searchTerm)
+            );
+            displayGlossary(filtered);
+        });
+
+        window.onload = () => displayGlossary();
+    </script>
+
+</body>
+</html>
